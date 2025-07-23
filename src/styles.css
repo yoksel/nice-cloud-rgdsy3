@@ -58,8 +58,17 @@ code {
   color: darkred;
 }
 
+dd blockquote {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+dt {
+  margin-bottom: 0.5rem;
+}
+
 dd + dt {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 footer {

@@ -73,7 +73,7 @@ function App() {
       <p>
         So if we have a <i>static</i> list, we probably can use almost any
         approach including index but the recommended approach is to use{' '}
-        <code>item.id.</code>
+        <code>item.id</code>.
       </p>
 
       <p>
@@ -84,8 +84,8 @@ function App() {
       </p>
 
       <p>
-        Below you can find some examples of how different <code>key</code> could
-        affect rendering of dynamic list.
+        Below you can find some examples of how different <code>key</code>{' '}
+        values could affect rendering of dynamic list.
       </p>
 
       <h2>How to check:</h2>
@@ -94,7 +94,7 @@ function App() {
       </p>
 
       <h2>
-        What result is expected for different <code>key</code> prop values?
+        What results are expected for different <code>key</code> prop values?
       </h2>
       <dl>
         <dt>
@@ -111,8 +111,8 @@ function App() {
           <code>index</code>
         </dt>
         <dd>
-          Text value will be stored in a wrong item because adding new item
-          index will be changed
+          Text value will be stored in a wrong item because after adding new
+          item indexes will be changed
         </dd>
         <dt>
           <code>item.id</code>
