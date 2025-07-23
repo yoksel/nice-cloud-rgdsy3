@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-keys-demo/static/css/main.b352b43d.css",
+    "main.js": "/react-keys-demo/static/js/main.5ea172c6.js",
+    "index.html": "/react-keys-demo/index.html",
+    "main.b352b43d.css.map": "/react-keys-demo/static/css/main.b352b43d.css.map",
+    "main.5ea172c6.js.map": "/react-keys-demo/static/js/main.5ea172c6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b352b43d.css",
+    "static/js/main.5ea172c6.js"
+  ]
+}
