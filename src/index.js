@@ -2,8 +2,8 @@ import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import {useState, useEffect} from 'react'
 import UsersTable, {keySourceOptions} from './UsersTable'
-import './styles.css'
 import clsx from 'clsx'
+import './styles.css'
 
 function App() {
   const [currentKeySourceId, setCurrentKeySourceId] = useState(
@@ -125,8 +125,9 @@ function App() {
           <code>item.id + index</code>
         </dt>
         <dd>
-          List works properly because adding index to non-unique values makes
-          them unique in list
+          React won't try to multiply duplicated items on every list update but
+          text values will be cleared because after adding new item indexes will
+          be changed so keys will always be new
         </dd>
       </dl>
       <ul className="tabs">

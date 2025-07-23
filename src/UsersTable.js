@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react'
 import {v4 as uuidv4} from 'uuid'
+import clsx from 'clsx'
 
 export const keySourceOptions = [
   {id: 'uuidv4', name: 'uuidv4()'},
@@ -25,6 +26,7 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
   const [userList, setList] = useState(getInitialUsers())
   const [showErrorMessage, setShowErrorMessage] = useState(false)
   const [newUserCounter, setNewUserCounter] = useState(0)
+  const [nonUniqueIds, setNonUniqueIds] = useState(new Set())
 
   const addItem = () => {
     const userCounter = newUserCounter + 1
@@ -49,6 +51,7 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
   }
 
   const addDuplicatedItem = () => {
+    setNonUniqueIds(items => items.add(userList[0].id))
     setList(items => [userList[0], ...items])
   }
 
@@ -81,7 +84,14 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
               <tr key={key}>
                 <td>{index}</td>
                 <td>
-                  <div className="key">{key}</div>
+                  <div
+                    className={clsx(
+                      'key',
+                      nonUniqueIds.has(key) && 'key--non-unique',
+                    )}
+                  >
+                    {key}
+                  </div>
                 </td>
                 <td>{user.id}</td>
                 <td>{user.name}</td>

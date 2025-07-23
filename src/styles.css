@@ -125,6 +125,11 @@ footer {
   background: lemonchiffon;
 }
 
+.key--non-unique {
+  background: mistyrose;
+  font-style: italic;
+}
+
 .buttons {
   display: flex;
   gap: 1rem;
