@@ -43,6 +43,8 @@ a {
 blockquote {
   position: relative;
   margin-left: 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   padding-left: 1rem;
   border-left: 5px solid #ddd;
 }
