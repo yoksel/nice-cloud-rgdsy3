@@ -1,6 +1,6 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import UsersTable, {keySourceOptions} from './UsersTable'
 import './styles.css'
 import clsx from 'clsx'
@@ -9,6 +9,14 @@ function App() {
   const [currentKeySourceId, setCurrentKeySourceId] = useState(
     keySourceOptions[0].id,
   )
+
+  useEffect(() => {
+    const idFromHash = window.location.hash.slice(1)
+    const keySourceById = keySourceOptions.find(item => item.id === idFromHash)
+    if (keySourceById) {
+      setCurrentKeySourceId(idFromHash)
+    }
+  }, [])
 
   return (
     <div className="page">
