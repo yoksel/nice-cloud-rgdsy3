@@ -61,7 +61,11 @@ function App() {
           </li>
         </ul>
         Source:{' '}
-        <a href="https://react.dev/learn/rendering-lists#rules-of-keys">
+        <a
+          href="https://react.dev/learn/rendering-lists#rules-of-keys"
+          target="_blank"
+          rel="noreferrer"
+        >
           Rendering Lists: Rules of keys
         </a>
       </blockquote>
@@ -153,7 +157,11 @@ function App() {
       ))}
 
       <footer>
-        <a href="https://github.com/yoksel/react-keys-demo/">
+        <a
+          href="https://github.com/yoksel/react-keys-demo/"
+          target="_blank"
+          rel="noreferrer"
+        >
           Project on Github
         </a>
       </footer>
