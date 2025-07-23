@@ -60,6 +60,12 @@ dd + dt {
   margin-top: 1rem;
 }
 
+footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ccc;
+}
+
 .hidden {
   display: none;
 }

@@ -44,7 +44,7 @@ function App() {
           target="_blank"
           rel="noreferrer"
         >
-          Rendering Lists: Keeping list items in order with <code>key</code>
+          Rendering Lists: Keeping list items in order with key
         </a>
       </blockquote>
 
@@ -151,6 +151,12 @@ function App() {
           )}
         />
       ))}
+
+      <footer>
+        <a href="https://github.com/yoksel/react-keys-demo/">
+          Project on Github
+        </a>
+      </footer>
     </div>
   )
 }
