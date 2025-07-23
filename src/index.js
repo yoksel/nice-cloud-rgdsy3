@@ -114,7 +114,8 @@ function App() {
           <code>item.id</code>
         </dt>
         <dd>
-          Text value will be stored in a proper item if all item ids are unique
+          List works properly if all item ids are unique otherwise React will
+          try to multiply duplicated items on every list update
         </dd>
       </dl>
       <ul className="tabs">

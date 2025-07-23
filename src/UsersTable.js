@@ -1,4 +1,4 @@
-import {useCallback, useState, useEffect} from 'react'
+import {useCallback, useState} from 'react'
 import {v4 as uuidv4} from 'uuid'
 
 export const keySourceOptions = [
@@ -23,13 +23,16 @@ const getInitialUsers = () => [
 const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
   const [userList, setList] = useState(getInitialUsers())
   const [showErrorMessage, setShowErrorMessage] = useState(false)
+  const [newUserCounter, setNewUserCounter] = useState(0)
 
   const addItem = () => {
+    const userCounter = newUserCounter + 1
     const newItem = {
-      name: 'New user',
+      name: `New user ${userCounter}`,
       id: getRandomId(),
     }
     setList(items => [newItem, ...items])
+    setNewUserCounter(userCounter)
   }
 
   const reset = () => {
