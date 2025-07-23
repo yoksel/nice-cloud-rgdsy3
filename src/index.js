@@ -1,72 +1,145 @@
-import React, {useState} from 'react'
-import ReactDOM from 'react-dom'
-import {v4 as uuidv4} from 'uuid'
-const getRandomId = () => Math.ceil(Math.random() * 100000)
+import {StrictMode} from 'react'
+import {createRoot} from 'react-dom/client'
+import {useState} from 'react'
+import UsersTable, {keySourceOptions} from './UsersTable'
+import './styles.css'
+import clsx from 'clsx'
 
 function App() {
-  const [userList, setList] = useState([
-    {
-      name: 'Old user 1',
-      id: getRandomId(),
-    },
-    {
-      name: 'Old user 2',
-      id: getRandomId(),
-    },
-  ])
-
-  const addItem = () => {
-    const newItem = {
-      name: 'New user',
-      id: getRandomId(),
-    }
-    setList((items) => [newItem, ...items])
-  }
+  const [currentKeySourceId, setCurrentKeySourceId] = useState(
+    keySourceOptions[0].id,
+  )
 
   return (
-    <>
-      <p>Add note to the first text field and click 'Add New User'</p>
+    <div className="page">
+      <h1>
+        Demo for issues with different variations of <code>key</code> prop in
+        React
+      </h1>
+
       <p>
-        With any key based on uuidv4() the first text field will be cleared
-        every time
+        React requires to have a unique <code>key</code> prop for each child in
+        a list:
       </p>
 
-      <div className="row">
-        <div className="col">
-          <table>
-            <thead>
-              <tr>
-                <th>Index</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userList.map((user, index) => {
-                return (
-                  // key based on index does not work
-                  <tr key={`play-queue-item-${uuidv4()}`}>
-                    <td>{index}</td>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>
-                      <input type="text" />
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <button onClick={addItem} style={{backgroundColor: 'yellowgreen'}}>
-            Add New User
-          </button>
-        </div>
-      </div>
-    </>
+      <blockquote>
+        <p>
+          Keys tell React which array item each component corresponds to, so
+          that it can match them up later. This becomes important if your array
+          items can move (e.g. due to sorting), get inserted, or get deleted. A
+          well-chosen key helps React infer what exactly has happened, and make
+          the correct updates to the DOM tree.
+        </p>
+        Source:{' '}
+        <a
+          href="https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key"
+          target="_blank" rel="noreferrer"
+        >
+          Rendering Lists: Keeping list items in order with <code>key</code>
+        </a>
+      </blockquote>
+
+      <blockquote>
+        <b>Rules of keys</b>
+        <ul>
+          <li>
+            Keys must be unique among siblings. However, it's okay to use the
+            same keys for JSX nodes in different arrays.
+          </li>
+          <li>
+            Keys must not change or that defeats their purpose! Don't generate
+            them while rendering.
+          </li>
+        </ul>
+        Source:{' '}
+        <a href="https://react.dev/learn/rendering-lists#rules-of-keys">
+          Rendering Lists: Rules of keys
+        </a>
+      </blockquote>
+
+      <p>
+        So if we have a <i>static</i> list, we probably can use almost any
+        approach including index but the recommended approach is to use{' '}
+        <code>item.id.</code>
+      </p>
+
+      <p>
+        And if we have a list which will be updated <i>dynamically</i>, we
+        should choose key prop values very carefully, because if React can't
+        detect properly which element should be updated, it could update
+        something unexpected.
+      </p>
+
+      <p>
+        Below you can find some examples of how different <code>key</code> could
+        affect rendering of dynamic list.
+      </p>
+
+      <h2>How to check:</h2>
+      <p>
+        Add note to the first text field and click <b>Add New User</b> button
+      </p>
+
+      <h2>
+        What result is expected for different <code>key</code> prop values?
+      </h2>
+      <dl>
+        <dt>
+          <code>uuidv4()</code>
+        </dt>
+        <dd>
+          The first text field will be cleared every time because it breaks the
+          rule:
+          <blockquote>
+            Keys must not change! Don't generate them while rendering.
+          </blockquote>
+        </dd>
+        <dt>
+          <code>index</code>
+        </dt>
+        <dd>
+          Text value will be stored in a wrong item because adding new item
+          index will be changed
+        </dd>
+        <dt>
+          <code>item.id</code>
+        </dt>
+        <dd>
+          Text value will be stored in a proper item if all item ids are unique
+        </dd>
+      </dl>
+      <ul className="tabs">
+        {keySourceOptions.map(keySourceOption => (
+          <li className="tab">
+            <a
+              href={`#${keySourceOption.id}`}
+              className={clsx(
+                'tab__link',
+                currentKeySourceId === keySourceOption.id &&
+                  'tab__link--current',
+              )}
+              onClick={() => setCurrentKeySourceId(keySourceOption.id)}
+            >
+              {keySourceOption.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+      {keySourceOptions.map(keySourceOption => (
+        <UsersTable
+          keySourceOption={keySourceOption}
+          className={currentKeySourceId !== keySourceOption.id && 'hidden'}
+        />
+      ))}
+    </div>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const rootElement = document.getElementById('root')
+const root = createRoot(rootElement)
+
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
