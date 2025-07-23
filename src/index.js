@@ -33,7 +33,8 @@ function App() {
         Source:{' '}
         <a
           href="https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key"
-          target="_blank" rel="noreferrer"
+          target="_blank"
+          rel="noreferrer"
         >
           Rendering Lists: Keeping list items in order with <code>key</code>
         </a>
