@@ -1,25 +1,28 @@
-import {useCallback, useState} from 'react'
+import {useCallback, useState, useEffect} from 'react'
 import {v4 as uuidv4} from 'uuid'
 
 export const keySourceOptions = [
   {id: 'uuidv4', name: 'uuidv4()'},
   {id: 'index', name: 'index'},
   {id: 'item-id', name: 'item.id'},
-];
+]
 
 export const getRandomId = () => Math.ceil(Math.random() * 100000)
 
+const getInitialUsers = () => [
+  {
+    name: 'Old user 1',
+    id: getRandomId(),
+  },
+  {
+    name: 'Old user 2',
+    id: getRandomId(),
+  },
+]
+
 const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
-  const [userList, setList] = useState([
-    {
-      name: 'Old user 1',
-      id: getRandomId(),
-    },
-    {
-      name: 'Old user 2',
-      id: getRandomId(),
-    },
-  ])
+  const [userList, setList] = useState(getInitialUsers())
+  const [showErrorMessage, setShowErrorMessage] = useState(false)
 
   const addItem = () => {
     const newItem = {
@@ -27,6 +30,22 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
       id: getRandomId(),
     }
     setList(items => [newItem, ...items])
+  }
+
+  const reset = () => {
+    setList(() => getInitialUsers())
+
+    if (keySourceOption.id !== 'item-id') return
+
+    const getUniqueIds = Array.from(new Set(userList.map(item => item.id)))
+
+    if (getUniqueIds.length !== userList.length) {
+      setShowErrorMessage(true)
+    }
+  }
+
+  const addDuplicatedItem = () => {
+    setList(items => [userList[0], ...items])
   }
 
   const getKey = useCallback(
@@ -70,7 +89,32 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
         </tbody>
       </table>
 
-      <button onClick={addItem}>Add New User</button>
+      {showErrorMessage && (
+        <div className="error-message">
+          Reset does not work for list with duplicated values. Reload the page
+          to update list.
+        </div>
+      )}
+
+      <div className="buttons">
+        <button onClick={addItem} className="button button--add">
+          Add New User
+        </button>{' '}
+        <button onClick={reset} className="button button--reset">
+          Reset
+        </button>
+      </div>
+      {keySourceOption.id === 'item-id' && (
+        <div>
+          <button
+            onClick={addDuplicatedItem}
+            className="button button--duplicate"
+          >
+            Duplicate User
+          </button>{' '}
+          — click button to see behavior for list with not unique ids
+        </div>
+      )}
     </div>
   )
 }
