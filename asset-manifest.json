@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/react-keys-demo/static/css/main.0a569807.css",
-    "main.js": "/react-keys-demo/static/js/main.f6551720.js",
+    "main.css": "/react-keys-demo/static/css/main.86b20b40.css",
+    "main.js": "/react-keys-demo/static/js/main.5ab2c2b6.js",
     "index.html": "/react-keys-demo/index.html",
-    "main.0a569807.css.map": "/react-keys-demo/static/css/main.0a569807.css.map",
-    "main.f6551720.js.map": "/react-keys-demo/static/js/main.f6551720.js.map"
+    "main.86b20b40.css.map": "/react-keys-demo/static/css/main.86b20b40.css.map",
+    "main.5ab2c2b6.js.map": "/react-keys-demo/static/js/main.5ab2c2b6.js.map"
   },
   "entrypoints": [
-    "static/css/main.0a569807.css",
-    "static/js/main.f6551720.js"
+    "static/css/main.86b20b40.css",
+    "static/js/main.5ab2c2b6.js"
   ]
 }
