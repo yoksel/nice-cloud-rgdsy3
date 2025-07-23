@@ -24,12 +24,10 @@ function App() {
         Demo for issues with different variations of <code>key</code> prop in
         React
       </h1>
-
       <p>
         React requires to have a unique <code>key</code> prop for each child in
         a list:
       </p>
-
       <blockquote>
         <p>
           Keys tell React which array item each component corresponds to, so
@@ -47,7 +45,6 @@ function App() {
           Rendering Lists: Keeping list items in order with key
         </a>
       </blockquote>
-
       <blockquote>
         <b>Rules of keys</b>
         <ul>
@@ -69,30 +66,25 @@ function App() {
           Rendering Lists: Rules of keys
         </a>
       </blockquote>
-
       <p>
         So if we have a <i>static</i> list, we probably can use almost any
         approach including index but the recommended approach is to use{' '}
         <code>item.id</code>.
       </p>
-
       <p>
         And if we have a list which will be updated <i>dynamically</i>, we
         should choose key prop values very carefully, because if React can't
         detect properly which element should be updated, it could update
         something unexpected.
       </p>
-
       <p>
         Below you can find some examples of how different <code>key</code>{' '}
         values could affect rendering of dynamic list.
       </p>
-
-      <h2>How to check:</h2>
+      <h2>How to check</h2>
       <p>
         Add note to the first text field and click <b>Add New User</b> button
       </p>
-
       <h2>
         What results are expected for different <code>key</code> prop values?
       </h2>
@@ -101,8 +93,9 @@ function App() {
           <code>uuidv4()</code>
         </dt>
         <dd>
-          The first text field will be cleared every time because it breaks the
-          rule:
+          The first text field will be cleared every time because{' '}
+          <code>uuidv4()</code> returns new value on every render so it breaks
+          the rule:
           <blockquote>
             Keys must not change! Don't generate them while rendering.
           </blockquote>
@@ -112,14 +105,16 @@ function App() {
         </dt>
         <dd>
           Text value will be stored in a wrong item because after adding new
-          item indexes will be changed
+          item indexes will be changed. Hence it breaks the rule about creating
+          new keys on rendering.
         </dd>
         <dt>
           <code>item.id</code>
         </dt>
         <dd>
-          List works properly if all item ids are unique otherwise React will
-          try to multiply duplicated items on every list update
+          List works properly if all item ids are unique, otherwise React will
+          try to multiply duplicated items on every list update because in this
+          case the rule about having unique keys among siblings will be broken.
         </dd>
         <dt>
           <code>item.id + index</code>
@@ -127,9 +122,11 @@ function App() {
         <dd>
           React won't try to multiply duplicated items on every list update but
           text values will be cleared because after adding new item indexes will
-          be changed so keys will always be new
+          be changed so keys will always be new hence it breaks the rule about
+          creating new keys on rendering.
         </dd>
       </dl>
+
       <ul className="tabs">
         {keySourceOptions.map(keySourceOption => (
           <li className="tab" key={keySourceOption.id}>
@@ -156,6 +153,14 @@ function App() {
           )}
         />
       ))}
+
+      <h2>Conclusion</h2>
+      <p>
+        Approach with <code>item.id</code> is good but all listed approaches are
+        not ideal for dynamic lists with non-unique items. Probably the best
+        approach for dynamic lists is to check before rendering that all ids in
+        list are unique.
+      </p>
 
       <footer>
         <a

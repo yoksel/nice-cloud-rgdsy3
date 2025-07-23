@@ -116,6 +116,10 @@ footer {
   color: black;
 }
 
+.user-table-container {
+  margin-bottom: 3rem;
+}
+
 .key {
   white-space: nowrap;
   width: 100px;
@@ -133,11 +137,12 @@ footer {
 .buttons {
   display: flex;
   gap: 1rem;
-  margin: 2rem 0 1rem;
+  margin: 2rem 0 1.5rem;
 }
 
 .button {
   border: 0;
+  min-width: 130px;
   padding: 0.75rem;
   font: inherit;
 }

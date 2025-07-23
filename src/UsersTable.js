@@ -66,7 +66,7 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
   )
 
   return (
-    <div className={className}>
+    <div className={clsx(className, 'user-table-container')}>
       <table>
         <thead>
           <tr>
