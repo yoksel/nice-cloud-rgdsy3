@@ -117,10 +117,17 @@ function App() {
           List works properly if all item ids are unique otherwise React will
           try to multiply duplicated items on every list update
         </dd>
+        <dt>
+          <code>item.id + index</code>
+        </dt>
+        <dd>
+          List works properly because adding index to non-unique values makes
+          them unique in list
+        </dd>
       </dl>
       <ul className="tabs">
         {keySourceOptions.map(keySourceOption => (
-          <li className="tab">
+          <li className="tab" key={keySourceOption.id}>
             <a
               href={`#${keySourceOption.id}`}
               className={clsx(
@@ -137,8 +144,11 @@ function App() {
       </ul>
       {keySourceOptions.map(keySourceOption => (
         <UsersTable
+          key={keySourceOption.id}
           keySourceOption={keySourceOption}
-          className={currentKeySourceId !== keySourceOption.id && 'hidden'}
+          className={clsx(
+            currentKeySourceId !== keySourceOption.id && 'hidden',
+          )}
         />
       ))}
     </div>

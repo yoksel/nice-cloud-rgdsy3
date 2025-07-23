@@ -5,6 +5,7 @@ export const keySourceOptions = [
   {id: 'uuidv4', name: 'uuidv4()'},
   {id: 'index', name: 'index'},
   {id: 'item-id', name: 'item.id'},
+  {id: 'item-id-and-index', name: 'item.id + index'},
 ]
 
 export const getRandomId = () => Math.ceil(Math.random() * 100000)
@@ -56,6 +57,7 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
       if (keySourceOption.id === 'uuidv4') return uuidv4()
       if (keySourceOption.id === 'index') return index
       if (keySourceOption.id === 'item-id') return id
+      if (keySourceOption.id === 'item-id-and-index') return `${id}-${index}`
     },
     [keySourceOption],
   )
@@ -107,7 +109,7 @@ const UsersTable = ({keySourceOption = keySourceOptions[0], className}) => {
           Reset
         </button>
       </div>
-      {keySourceOption.id === 'item-id' && (
+      {['item-id', 'item-id-and-index'].includes(keySourceOption.id) && (
         <div>
           <button
             onClick={addDuplicatedItem}
